@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Edit a video easily">
+    <meta name="keywords" content="video, compress, ffmpeg, cloud, crf, quality, mp4, webm">
+    <meta name="author" content="RS1">
+    <meta name="og:title" content="RS1 Video Editor">
+    <meta name="og:description" content="Edit a video easily">
+    <meta name="og:url" content="https://videoeditor.rs1.es">
+    <meta name="og:type" content="website">
+    <meta name="og:site_name" content="RS1 Video Editor">
+    <meta name="og:image" content="https://videoeditor.rs1.es/apple-touch-icon.png">
+    <meta name="og:image:width" content="256">
+    <meta name="og:image:height" content="256">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="RS1 Video Editor">
+    <meta name="twitter:description"
+        content="Edit a video easily">
+    <meta name="twitter:url" content="https://videoeditor.rs1.es">
+    <meta name="twitter:image" content="https://videoeditor.rs1.es/apple-touch-icon.png">
+    <title>RS1 Video Editor - videoeditor.rs1.es</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="res/css/main.min.css?v=20210822_1940">
+    <link rel="shortcut icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+
+<body>
+    <div class="content">
+        <header>
+            <div class="logo-header">
+                <img src="res/imgs/logo-header.png" alt="web logo">
+            </div>
+            <div class="title-header">
+                <h1><a href="/">Video Editor</a></h1>
+            </div>
+        </header>
+        <main>
+            <div class="intro">
+                <p>Edit a video in three simple steps</p>
+                <p class="sub">Files are deleted every 24 hours</p>
+            </div>
+            <div class="steps">
+                <div class="step" id="dropFileHere">
+                    <div class="step-intro">
+                        <div class="step-num">1</div>
+                        <div class="step-name">Choose a video
+                            <span>max. 1GB</span>
+                            <span>You can drag and drop</span>
+                        </div>
+                    </div>
+                    <div class="step-actions">
+                        <button id="select-file-btn" class="enabled">Select videos</button>
+                        <div class="enterLinkBox">
+                            <p>or type an URL and we will look for videos.</p>
+                            <p>Type the URL and press Enter</p>
+                        <form action="" id="linkForm">
+                            <input type="search" name="linkInput" id="linkInput" placeholder="https://example.com/page" autocomplete="off">
+                        </form>
+                        </div>
+                        
+                        <div class="filename"></div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-intro">
+                        <div class="step-num">2</div>
+                        <div class="step-name">Choose transformations<span>Click the name to activate</span>
+                        </div>
+                    </div>
+                    <div class="step-actions">
+                        <div class="step-action action-disabled" id="compress">
+                            <div class="step-action-name" id="compress-name">Quality</div>
+                            <div class="step-action-content action-content-disabled">
+                                <p>(Optional, 0 =&gt; low, 10 =&gt; high)</p>
+                                <form class="step-action-content" id="quality-range"
+                                oninput="x.value=parseInt(a.value)">0
+                                    <input type="range" name="a" id="quality-input" value="5" max="10" min="0"
+                                        autocomplete="off">10
+                                    <output name="x" for="quality-input">5</output>
+                                </form>
+                            </div>  
+                        </div>
+
+                        <div class="step-action action-disabled" id="extract">
+                            <div class="step-action-name" id="extract-name">Cut</div>
+                            <div class="step-action-content action-content-disabled">
+                                <p>You can fill in one or both fields.</p>
+                                <p>(minutes:seconds)</p>
+                                <div class="dimensionBox">
+                                    <label for="start-input">Start:</label>
+                                    <input type="text" name="start-number" class="resize-inputs" id="start-input" autocomplete="off" placeholder="00:00">
+                                </div>
+                                <div class="dimensionBox">
+                                    <label for="end-input">End:</label>
+                                    <input type="text" name="end" class="resize-inputs" id="end-input" autocomplete="off" placeholder="00:00">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-action action-disabled" id="audio">
+                            <div class="step-action-name" id="audio-name">Extract audio</div>
+                            <div class="step-action-content action-content-disabled">
+                                <p>Select bitrate</p>
+                                <form class="step-action-content" id="quality-audio-range"
+                                oninput="x.value=parseInt(a.value) + ' kbps'">92
+                                    <input type="range" name="a" id="quality-audio-input" value="192" max="320" min="92"
+                                        autocomplete="off">320
+                                    <output name="x" for="quality-audio-input">192 kbps</output>
+                                </form>
+                            </div>  
+                        </div>
+
+                        <div class="step-action action-disabled" id="stabilize">
+                            <div class="step-action-name" id="stabilize-name">Stabilize</div>
+                        </div>
+
+                        <div class="step-action action-disabled" id="converttomp4">
+                            <div class="step-action-name" id="converttomp4-name">Convert to MP4</div>
+                            <div class="step-action-content action-content-disabled">
+                                <p>Processed videos must be less than 500MB in size.</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-intro">
+                        <div class="step-num">3</div>
+                        <div class="step-name">Click to Apply
+                            <span>Output video format: WebM</span>
+                            <span>Output audio format: mp3</span></div>
+                    </div>
+                    <div class="step-actions final-btns">
+                        <button id="apply-btn" class="disabled" disabled autocomplete="off">Apply changes</button>
+                        <button id="reset-btn" class="disabled" disabled>RESET</button>
+                    </div>
+                </div>
+            </div>
+            <div class="result"></div>
+        </main>
+        <footer>
+            <div class="footer-block">
+                <div class="footer-intro">
+                    <div class="footer-intro-title">
+                        <img src="res/imgs/logo-header.png" alt="">
+                        <span>Video Editor</span>
+                    </div>
+                    <div class="footer-intro-description">
+                        <p>This website allows simple video editing.</p>
+                        <p>This is part of <a href="https://rs1.es">RS1 Linux Tools</a>.</p>
+                    </div>
+                </div>
+                <div class="footer-feedback">
+                    <div class="footer-feedback-title">
+                        <span>Support & Feedback</span>
+                    </div>
+                    <div class="footer-feedback-desc">
+                        <p>If you have any troubles or suggestions, you can send an email to <a
+                                href="mailto:admin@rs1.es">admin@rs1.es</a>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-info">
+                <span>2020 - Created by RS1.</span>
+            </div>
+        </footer>
+    </div>
+    <script src="res/js/aws-sdk-2.770.0.min.js"></script>
+    <script src="res/js/main.min.js?v=20210610_1653"></script>
+</body>
+
+</html>
